@@ -1,11 +1,11 @@
-package main.java.com.example;
+package Main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener{
 
-    public boolean upPressed, downPressed, leftPressed, rightPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, speedPressed;
     
     @Override
     public void keyTyped(KeyEvent e) {
@@ -17,6 +17,9 @@ public class KeyHandler implements KeyListener{
         
         int code = e.getKeyCode();
         
+        if(code == KeyEvent.VK_P){
+            speedPressed = true;
+        }
         if(code == KeyEvent.VK_W){
             upPressed = true;
         }
@@ -36,6 +39,9 @@ public class KeyHandler implements KeyListener{
 
         int code = e.getKeyCode();
 
+        if(code == KeyEvent.VK_P){
+            speedPressed = false;
+        }
         if(code == KeyEvent.VK_W){
             upPressed = false;
         }

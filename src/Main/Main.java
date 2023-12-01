@@ -1,4 +1,4 @@
-package main.java.com.example;
+package Main;
 import javax.swing.JFrame;
 
 public class Main {
@@ -7,7 +7,7 @@ public class Main {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setTitle("2D Adventure");
-
+        
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);
 
@@ -16,6 +16,7 @@ public class Main {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
 
+        gamePanel.setupGame();;
         gamePanel.startGameThread();
     }
 }
