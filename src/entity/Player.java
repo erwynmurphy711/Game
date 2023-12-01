@@ -41,11 +41,6 @@ public class Player extends Entity {
         worldX = gp.tileSize * 22; // X INITIAL PLAYER POSITION
         worldY = gp.tileSize * 33; // Y INITIAL PLAYER POSITION
         speed = 4; // SPEED OF PLAYER
-        if (keyH.speedPressed == true) {
-            speed = 8;
-        } else if (keyH.speedPressed == false) {
-            speed = 4;
-        }
         direction = "down";
     }
 
@@ -71,15 +66,8 @@ public class Player extends Entity {
         int animation = 12;
 
         if (keyH.upPressed == true || keyH.downPressed == true ||
-                keyH.leftPressed == true || keyH.rightPressed == true || keyH.speedPressed == true) {
+                keyH.leftPressed == true || keyH.rightPressed == true) {
 
-            if (keyH.speedPressed == false) { // IF RUNNING THE SPEED AND ANIMATION IS INCREASED
-                speed = 4;
-                animation = 25;
-            } else if (keyH.speedPressed == true) {
-                speed = 6;
-                animation = 10;
-            }
 
             if (keyH.upPressed == true) {
                 direction = "up";
@@ -132,23 +120,28 @@ public class Player extends Entity {
     }
 
     public void pickUpObject(int i) {
-
         if (i != 999) {
 
             String objectName = gp.obj[i].name;
 
             switch (objectName) {
                 case "Key": // WHICH THING ITS INTERACTING WITH
+                    gp.playSE(1); // PLAYING SOUND
                     hasKey++; // HAS A KEY
-                    gp.obj[i] = null; // GETS RID OF OBJECT
+                    gp.obj[i] =  null; // GETS RID OF OBJECT
                     break;
 
                 case "Door": // WHICH THING ITS INTERACTING WITH
                     if (hasKey > 0) {
+                        gp.playSE(3); // PLAYING SOUND
                         gp.obj[i] = null; // IF HAVE KEY, GET RID OF DOOR
-                        hasKey--;
+                        hasKey--;  // GET RID OF KEY
                     }
-                     // GET RID OF KEY
+                    break;
+                case "Boots":
+                    gp.playSE(2); // PLAYING SOUND
+                    speed += 2; // INCREASING SPEED
+                    gp.obj[i] = null;
                     break;
             }
         }
