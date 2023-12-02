@@ -17,7 +17,7 @@ public class Player extends Entity {
 
     public final int screenX;
     public final int screenY;
-    int hasKey = 0;
+    public int hasKey = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
 
@@ -129,19 +129,35 @@ public class Player extends Entity {
                     gp.playSE(1); // PLAYING SOUND
                     hasKey++; // HAS A KEY
                     gp.obj[i] =  null; // GETS RID OF OBJECT
+                    gp.ui.showMessage("You got a key!"); // TEXT FROM SHOW MESSAGE METHOD IN UI
                     break;
 
                 case "Door": // WHICH THING ITS INTERACTING WITH
                     if (hasKey > 0) {
-                        gp.playSE(3); // PLAYING SOUND
+                        gp.playSE(3); // PLAYING SOUND with index from soundURL in sound class
                         gp.obj[i] = null; // IF HAVE KEY, GET RID OF DOOR
                         hasKey--;  // GET RID OF KEY
+                        gp.ui.showMessage("You opened the door!"); // TEXT FROM SHOW MESSAGE METHOD IN UI
+                    
+                    }
+                    if (hasKey == 0){
+                        gp.ui.showMessage("You need a key!"); // TEXT FROM SHOW MESSAGE METHOD IN UI
                     }
                     break;
                 case "Boots":
                     gp.playSE(2); // PLAYING SOUND
                     speed += 2; // INCREASING SPEED
                     gp.obj[i] = null;
+                    gp.ui.showMessage("Speed up!"); // TEXT FROM SHOW MESSAGE METHOD IN UI
+                    break;
+                case "Chest":
+                    gp.playSE(3);
+                    gp.obj[i] = null;
+                    gp.obj[5].worldX = 22 * gp.tileSize;
+                    gp.obj[5].worldY = 20 * gp.tileSize;
+                    gp.ui.gameFinished = true;
+                    gp.stopMusic();;
+                    gp.playSE(4);
                     break;
             }
         }
