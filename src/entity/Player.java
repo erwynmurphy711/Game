@@ -18,6 +18,7 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY;
     public int hasKey = 0;
+    public int coinCount = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
 
@@ -138,6 +139,7 @@ public class Player extends Entity {
                         gp.obj[i] = null; // IF HAVE KEY, GET RID OF DOOR
                         hasKey--;  // GET RID OF KEY
                         gp.ui.showMessage("You opened the door!"); // TEXT FROM SHOW MESSAGE METHOD IN UI
+                        break;
                     
                     }
                     if (hasKey == 0){
@@ -160,7 +162,7 @@ public class Player extends Entity {
                     gp.playSE(4);
                     break;
                 case "Axe":
-                    if (gp.ui.damage == 1){
+                    if (gp.ui.damage == 3){
                         gp.obj[i] = null;
                         gp.ui.damage++;
                         gp.ui.gameFinished = true;
@@ -173,20 +175,20 @@ public class Player extends Entity {
                     }
                     break;
                 case "Lantern":
-                    if (gp.ui.damage == 1){
+                    if (gp.ui.damage == 3){
                         gp.obj[i] = null;
                         gp.ui.damage++;
                         gp.stopMusic();
                         gp.ui.gameFinished = true;
                     } else{
                     gp.obj[i] = null;
-                    gp.playSE(6);
+                    gp.playSE(8);
                     gp.ui.damage++;
-                    gp.ui.showMessage("You took damage!");
+                    gp.ui.showMessage("You got burned!");
                     }
                     break;
                     
-                case "Coin_Bronze":
+                case "Potion_Red":
                     if(gp.ui.damage != 0){
                         gp.obj[i] = null;
                         gp.playSE(1);
@@ -195,6 +197,11 @@ public class Player extends Entity {
                     } else{
                         gp.ui.showMessage("Your health is full!");
                     }
+                    break;
+                case "Coin_Bronze":
+                    gp.obj[i] = null;
+                    gp.playSE(1);
+                    coinCount++;
                     break;
             }
         }
