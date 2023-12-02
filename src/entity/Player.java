@@ -159,6 +159,43 @@ public class Player extends Entity {
                     gp.stopMusic();;
                     gp.playSE(4);
                     break;
+                case "Axe":
+                    if (gp.ui.damage == 1){
+                        gp.obj[i] = null;
+                        gp.ui.damage++;
+                        gp.ui.gameFinished = true;
+                        gp.stopMusic();
+                    } else{
+                    gp.obj[i] = null;
+                    gp.playSE(6);
+                    gp.ui.damage++;
+                    gp.ui.showMessage("You took damage!");
+                    }
+                    break;
+                case "Lantern":
+                    if (gp.ui.damage == 1){
+                        gp.obj[i] = null;
+                        gp.ui.damage++;
+                        gp.stopMusic();
+                        gp.ui.gameFinished = true;
+                    } else{
+                    gp.obj[i] = null;
+                    gp.playSE(6);
+                    gp.ui.damage++;
+                    gp.ui.showMessage("You took damage!");
+                    }
+                    break;
+                    
+                case "Coin_Bronze":
+                    if(gp.ui.damage != 0){
+                        gp.obj[i] = null;
+                        gp.playSE(1);
+                        gp.ui.damage--;
+                        gp.ui.showMessage("Healed!");
+                    } else{
+                        gp.ui.showMessage("Your health is full!");
+                    }
+                    break;
             }
         }
     }
