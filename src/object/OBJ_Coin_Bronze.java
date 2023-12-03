@@ -4,17 +4,22 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-    public class OBJ_Coin_Bronze extends SuperObject {
+import Main.GamePanel;
 
-    public OBJ_Coin_Bronze(){
+public class OBJ_Coin_Bronze extends SuperObject {
 
+    GamePanel gp;
+
+    public OBJ_Coin_Bronze(GamePanel gp) {
 
         name = "Coin_Bronze";
 
-        try{
+        try {
             image = ImageIO.read(getClass().getResourceAsStream("/objects/coin_bronze.png"));
-        }catch (IOException e){
-            e.printStackTrace();;
+            uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+        } catch (IOException e) {
+            e.printStackTrace();
+            ;
         }
     }
 }

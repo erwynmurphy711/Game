@@ -38,19 +38,19 @@ public class UI {
         arial_40 = new Font("Arial", Font.PLAIN, 40); // FONT, NORMAL (ITALIC or BOLD etc), AND SIZE
         arial_80B = new Font("Arial", Font.BOLD, 80);
 
-        OBJ_Coin_Bronze bronzecoin = new OBJ_Coin_Bronze();
+        OBJ_Coin_Bronze bronzecoin = new OBJ_Coin_Bronze(gp);
         bronzecoinImage = bronzecoin.image;
 
-        OBJ_Heart_Full fullheart = new OBJ_Heart_Full();
+        OBJ_Heart_Full fullheart = new OBJ_Heart_Full(gp);
         fullheartImage = fullheart.image;
 
-        OBJ_Heart_Half halfheart = new OBJ_Heart_Half();
+        OBJ_Heart_Half halfheart = new OBJ_Heart_Half(gp);
         halfheartImage = halfheart.image;
 
-        OBJ_Heart_Blank blankheart = new OBJ_Heart_Blank();
+        OBJ_Heart_Blank blankheart = new OBJ_Heart_Blank(gp);
         blankheartImage = blankheart.image;
 
-        OBJ_Key key = new OBJ_Key();
+        OBJ_Key key = new OBJ_Key(gp);
         keyImage = key.image;
     }
 

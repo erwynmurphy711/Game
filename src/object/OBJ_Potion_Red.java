@@ -4,17 +4,22 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-    public class OBJ_Potion_Red extends SuperObject {
+import Main.GamePanel;
 
-    public OBJ_Potion_Red(){
+public class OBJ_Potion_Red extends SuperObject {
 
+    GamePanel gp;
+
+    public OBJ_Potion_Red(GamePanel gp) {
 
         name = "Potion_Red";
 
-        try{
+        try {
             image = ImageIO.read(getClass().getResourceAsStream("/objects/potion_red.png"));
-        }catch (IOException e){
-            e.printStackTrace();;
+            uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+        } catch (IOException e) {
+            e.printStackTrace();
+            ;
         }
     }
 }

@@ -4,17 +4,22 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-    public class OBJ_Heart_Full extends SuperObject {
+import Main.GamePanel;
 
-    public OBJ_Heart_Full(){
+public class OBJ_Heart_Full extends SuperObject {
 
+    GamePanel gp;
+
+    public OBJ_Heart_Full(GamePanel gp) {
 
         name = "Heart_Full";
 
-        try{
+        try {
             image = ImageIO.read(getClass().getResourceAsStream("/objects/heart_full.png"));
-        }catch (IOException e){
-            e.printStackTrace();;
+            uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+        } catch (IOException e) {
+            e.printStackTrace();
+            ;
         }
     }
 }

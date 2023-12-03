@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 
 import Main.GamePanel;
 import Main.KeyHandler;
+import Main.UtilityTool;
 
 public class Player extends Entity {
 
@@ -39,27 +40,39 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
 
-        worldX = gp.tileSize * 22; // X INITIAL PLAYER POSITION
-        worldY = gp.tileSize * 33; // Y INITIAL PLAYER POSITION
+        worldX = gp.tileSize * 24; // X INITIAL PLAYER POSITION
+        worldY = gp.tileSize * 24; // Y INITIAL PLAYER POSITION
         speed = 4; // SPEED OF PLAYER
         direction = "down";
     }
 
     public void getPlayerImage() {
 
+        up1 = setup("boy_up_1");
+        up2 = setup("boy_up_2");
+        down1 = setup("boy_down_1");
+        down2 = setup("boy_down_2");
+        left1 = setup("boy_left_1");
+        left2 = setup("boy_left_2");
+        right1 = setup("boy_right_1");
+        right2 = setup("boy_right_2");
+
+    }
+
+    public BufferedImage setup(String imageName) {
+
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+
         try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_up_2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_down_2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_left_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_left_2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_right_2.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName + ".png"));
+            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
 
         } catch (IOException e) {
             e.printStackTrace();
+            ;
         }
+        return image;
     }
 
     public void update() {
@@ -68,7 +81,6 @@ public class Player extends Entity {
 
         if (keyH.upPressed == true || keyH.downPressed == true ||
                 keyH.leftPressed == true || keyH.rightPressed == true) {
-
 
             if (keyH.upPressed == true) {
                 direction = "up";
@@ -129,7 +141,7 @@ public class Player extends Entity {
                 case "Key": // WHICH THING ITS INTERACTING WITH
                     gp.playSE(1); // PLAYING SOUND
                     hasKey++; // HAS A KEY
-                    gp.obj[i] =  null; // GETS RID OF OBJECT
+                    gp.obj[i] = null; // GETS RID OF OBJECT
                     gp.ui.showMessage("You got a key!"); // TEXT FROM SHOW MESSAGE METHOD IN UI
                     break;
 
@@ -137,12 +149,12 @@ public class Player extends Entity {
                     if (hasKey > 0) {
                         gp.playSE(3); // PLAYING SOUND with index from soundURL in sound class
                         gp.obj[i] = null; // IF HAVE KEY, GET RID OF DOOR
-                        hasKey--;  // GET RID OF KEY
+                        hasKey--; // GET RID OF KEY
                         gp.ui.showMessage("You opened the door!"); // TEXT FROM SHOW MESSAGE METHOD IN UI
                         break;
-                    
+
                     }
-                    if (hasKey == 0){
+                    if (hasKey == 0) {
                         gp.ui.showMessage("You need a key!"); // TEXT FROM SHOW MESSAGE METHOD IN UI
                     }
                     break;
@@ -155,46 +167,46 @@ public class Player extends Entity {
                 case "Chest":
                     gp.playSE(3);
                     gp.obj[i] = null;
-                    gp.obj[5].worldX = 22 * gp.tileSize;
-                    gp.obj[5].worldY = 20 * gp.tileSize;
+                    gp.obj[5].worldX = 10 * gp.tileSize;
+                    gp.obj[5].worldY = 11 * gp.tileSize;
                     gp.ui.gameFinished = true;
-                    gp.stopMusic();;
+                    gp.stopMusic();
                     gp.playSE(4);
                     break;
                 case "Axe":
-                    if (gp.ui.damage == 3){
+                    if (gp.ui.damage == 3) {
                         gp.obj[i] = null;
                         gp.ui.damage++;
                         gp.ui.gameFinished = true;
                         gp.stopMusic();
-                    } else{
-                    gp.obj[i] = null;
-                    gp.playSE(6);
-                    gp.ui.damage++;
-                    gp.ui.showMessage("You took damage!");
+                    } else {
+                        gp.obj[i] = null;
+                        gp.playSE(6);
+                        gp.ui.damage++;
+                        gp.ui.showMessage("You took damage!");
                     }
                     break;
                 case "Lantern":
-                    if (gp.ui.damage == 3){
+                    if (gp.ui.damage == 3) {
                         gp.obj[i] = null;
                         gp.ui.damage++;
                         gp.stopMusic();
                         gp.ui.gameFinished = true;
-                    } else{
-                    gp.obj[i] = null;
-                    gp.playSE(8);
-                    gp.ui.damage++;
-                    gp.ui.showMessage("You got burned!");
+                    } else {
+                        gp.obj[i] = null;
+                        gp.playSE(8);
+                        gp.ui.damage++;
+                        gp.ui.showMessage("You got burned!");
                     }
                     break;
-                    
+
                 case "Potion_Red":
-                    if(gp.ui.damage != 0){
+                    if (gp.ui.damage != 0) {
                         gp.obj[i] = null;
                         gp.playSE(1);
                         gp.ui.damage--;
                         gp.ui.showMessage("Healed!");
-                    } else{
+                    } else {
                         gp.ui.showMessage("Your health is full!");
                     }
                     break;
@@ -249,7 +261,7 @@ public class Player extends Entity {
                 }
                 break;
         }
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, null);
 
     }
 }
